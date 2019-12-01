@@ -5,6 +5,9 @@
 </head>
 <body>
   <script>
+    let playerCount = 0;
+    let computerCount = 0;
+    let drawCount = 0;
     function capitalize(str) {
         let firstL = (str.slice(0,1)).toUpperCase();
         let remain = (str.slice(1)).toLowerCase();
@@ -13,13 +16,14 @@
 
     function computerPlay() {
       let rndNo = Math.floor(Math.random()*3);
-      let selection = (rndNo == 1) ? "Rock" : ((rndNo == 2) ? "Paper": "Scissors")
+      let selection = (rndNo == 1) ? "Rock" : ((rndNo == 2) ? "Paper": "Scissors");
       return selection;
     }
 
     function playRound(playerSelection, computerSelection) {
       let playerPick = capitalize(playerSelection);
       let result;
+      let winner;
       if (computerSelection == "Rock") {
         if (playerPick == "Paper") {
           result = "You Win! Paper beats Rock"
@@ -53,20 +57,44 @@
           result = "You Win! Rock beats Scissors"
         }
       }
-      return result;
+
+      if (result !== "Draw") {
+        winner = (result.indexOf("Win") == -1 ) ? "Computer wins!" : "Player wins!" ;
+        return winner;
+      }
+      else {
+        return "Draw!";
+      }
+    }
+
+    game()
+    game()
+    game()
+    game()
+    game()
+    if (playerCount > computerCount) {
+      console.log("Player wins over 5 games!")
+    }
+    else if (playerCount < computerCount) {
+      console.log("Computer wins over 5 games!")
+    }
+    else {
+      console.log("Draw over 5 games!")
     }
 
     function game() {
-      
+      let playerInput = window.prompt()
+      const computerSelection = computerPlay()
+      console.log(playRound(playerInput, computerSelection));
+      (playRound(playerInput, computerSelection) == "Computer wins!") ? computerCount++ : 
+      ((playRound(playerInput, computerSelection) == "Player wins!") ? playerCount++ : drawCount++) ;
     }
 
-    const playerSelection = 'rock'
-    const computerSelection = computerPlay()
-    console.log(playRound(playerSelection, computerSelection))
-
+    // const playerSelection = 'rock'
+    // const computerSelection = computerPlay()
+    // console.log(playRound(playerSelection, computerSelection))
     // console.log(computerPlay())
     
-    console.log("Hello, World!")
   </script>
 </body>
 </html>
