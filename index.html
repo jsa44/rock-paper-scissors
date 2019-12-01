@@ -5,8 +5,66 @@
 </head>
 <body>
   <script>
-    
+    function capitalize(str) {
+        let firstL = (str.slice(0,1)).toUpperCase();
+        let remain = (str.slice(1)).toLowerCase();
+        return (firstL + "" + remain);
+    }
 
+    function computerPlay() {
+      let rndNo = Math.floor(Math.random()*3);
+      let selection = (rndNo == 1) ? "Rock" : ((rndNo == 2) ? "Paper": "Scissors")
+      return selection;
+    }
+
+    function playRound(playerSelection, computerSelection) {
+      let playerPick = capitalize(playerSelection);
+      let result;
+      if (computerSelection == "Rock") {
+        if (playerPick == "Paper") {
+          result = "You Win! Paper beats Rock"
+        }
+        else if (playerPick == "Scissors") {
+          result = "You Lose! Rock beats Scissors"
+        }
+        else {
+          result = "Draw"
+        }
+      }
+      else if (computerSelection == "Paper") {
+        if (playerPick == "Paper") {
+          result = "Draw"
+        }
+        else if (playerPick == "Scissors") {
+          result = "You Win! Scissors beats Paper"
+        }
+        else {
+          result = "You Lose! Paper beats Rock"
+        }
+      }
+      else {
+        if (playerPick == "Paper") {
+          result = "You Lose! Scissors beats Paper"
+        }
+        else if (playerPick == "Scissors") {
+          result = "Draw"
+        }
+        else {
+          result = "You Win! Rock beats Scissors"
+        }
+      }
+      return result;
+    }
+
+    function game() {
+      
+    }
+
+    const playerSelection = 'rock'
+    const computerSelection = computerPlay()
+    console.log(playRound(playerSelection, computerSelection))
+
+    // console.log(computerPlay())
     
     console.log("Hello, World!")
   </script>
