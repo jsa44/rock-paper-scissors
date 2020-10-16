@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <button class="btn" id="rock" value="Rock">Rock</button>
+  <button class="btn" id= "paper" value="Paper">Paper</button>
+  <button class="btn" id="scissors" value="Scissors">Scissors</button>
+  <div id="score"></div>
+  <div id="container"></div>
+</head>
+<body>
+  <script>
+    let playerCount = 0;
+    let computerCount = 0;
+    let drawCount = 0;
+    let final_result;
+    
+    const playerSelect = document.querySelectorAll('.btn');
+    playerSelect.forEach(item => item.addEventListener('click', () => {
+      console.log(item.value);
+      if (playerCount < 5 && computerCount < 5) {
+        let winner = playRound(item.value, computerPlay());
+        domDiv(winner);
+        winner == "Computer wins!" ? computerCount++ : 
+        winner == "Player wins!" ? playerCount++ : drawCount++
+        changeScore(winner);
+      }
+      else if (!final_result) {
+        if (playerCount == 5) {
+          final_result = 'Player Wins over 5 Rounds';
+        }
+        else {
+          final_result = 'Computer Wins over 5 Rounds';
+        }
+        domDiv(final_result);
+      }
+      else {
+        return;
+      }
+    }
+    ));
+    
+    function changeScore(winner) {
+      const content = document.querySelector('#score');
+      content.textContent = ('Player Score: ' + playerCount + ' Computer Score: ' + computerCount);
+    }
+
+    function domDiv(winner) {
+      const container = document.querySelector('#container');
+      const content = document.createElement('div');
+      content.textContent = winner;
+      container.appendChild(content);
+    }
+    
+    
+    function capitalize(str) {
+        let firstL = (str.slice(0,1)).toUpperCase();
+        let remain = (str.slice(1)).toLowerCase();
+        return (firstL + "" + remain);
+    }
+
+    function test() {
+      return console.log('hi');
+    }
+
+    function computerPlay() {
+      let rndNo = Math.floor(Math.random()*3);
+      let selection = (rndNo == 1) ? "Rock" : ((rndNo == 2) ? "Paper": "Scissors");
+      return selection;
+    }
+
+    function playRound(playerSelection, computerSelection) {
+      let playerPick = capitalize(playerSelection);
+      let result;
+      let winner;
+      if (computerSelection == "Rock") {
+        if (playerPick == "Paper") {
+          result = "You Win! Paper beats Rock"
+        }
+        else if (playerPick == "Scissors") {
+          result = "You Lose! Rock beats Scissors"
+        }
+        else {
+          result = "Draw"
+        }
+      }
+      else if (computerSelection == "Paper") {
+        if (playerPick == "Paper") {
+          result = "Draw"
+        }
+        else if (playerPick == "Scissors") {
+          result = "You Win! Scissors beats Paper"
+        }
+        else {
+          result = "You Lose! Paper beats Rock"
+        }
+      }
+      else {
+        if (playerPick == "Paper") {
+          result = "You Lose! Scissors beats Paper"
+        }
+        else if (playerPick == "Scissors") {
+          result = "Draw"
+        }
+        else {
+          result = "You Win! Rock beats Scissors"
+        }
+      }
+
+      if (result !== "Draw") {
+        winner = (result.indexOf("Win") == -1 ) ? "Computer wins!" : "Player wins!" ;
+        return winner;
+      }
+      else {
+        return "Draw!";
+      }
+    }
+
+  </script>
+</body>
+</html>
